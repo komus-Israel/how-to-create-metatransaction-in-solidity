@@ -19,11 +19,7 @@ contract("Meta", ([address1, address2, operator1, operator2])=>{
         })
     })
 
-    describe("certificate hash", ()=>{
-
-        /*it("has an empty hash", async()=>{
-            const hash = 
-        })*/
+    describe("certificate hash with solidity", ()=>{
 
         let hash
 
@@ -32,8 +28,37 @@ contract("Meta", ([address1, address2, operator1, operator2])=>{
         })
 
         it("returns hash", async()=>{
-           const hash = await meta._hashedMessage()
-           console.log(hash)
+           const hashMessage = await meta._hashedMessage()
+           console.log(hashMessage)
         })
+    })
+
+    describe("certificate hash with web3 js and solidity", ()=>{
+
+        let hash
+        let _certificate
+
+        _certificate = {
+
+            nonce: 225,
+            maxAmount: 1000,
+            minAmount: 10
+
+        }
+
+        
+        beforeEach(async()=>{
+
+            hash = await meta.getMessageHash(_certificate)
+            
+
+        })
+
+
+        it("returns hash", async()=>{
+            const hashMessage = await meta._hashedMessage()
+            console.log(hashMessage)
+        })
+
     })
 })
