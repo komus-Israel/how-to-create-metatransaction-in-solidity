@@ -61,4 +61,30 @@ contract("Meta", ([address1, address2, operator1, operator2])=>{
         })
 
     })
+
+    describe("certificate hash with just web3 js", ()=>{
+        let hash
+        let _certificate
+        let encoded
+
+        _certificate = {
+
+            nonce: 225,
+            maxAmount: 1000,
+            minAmount: 10
+
+        }
+
+        beforeEach(()=>{
+           encoded =  web3.eth.abi.encodeParameters(["uint256", "uint256", "uint256"], [_certificate.nonce, _certificate.maxAmount, _certificate.minAmount])
+        })
+
+        it("returns hash", ()=>{
+           const hash = web3.utils.keccak256(encoded)
+           console.log(hash)
+        })
+
+
+        
+    })
 })
