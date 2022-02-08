@@ -71,7 +71,7 @@ contract("Meta", ([address1, address2, operator1, operator2])=>{
 
             nonce: 225,
             maxAmount: 1000,
-            minAmount: 1
+            minAmount: 10
 
         }
 
@@ -85,6 +85,10 @@ contract("Meta", ([address1, address2, operator1, operator2])=>{
         })
 
 
+        
+    })
+
+    describe("certificate signing", ()=>{
         
     })
 })

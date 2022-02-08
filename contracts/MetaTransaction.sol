@@ -33,7 +33,7 @@ contract MetaTransaction {
     bytes _signedData;
     bytes32 public _hashedMessage;
 
-    function signCertificate () public view returns (bytes memory)  {
+    function signCertificate (bytes32 _certificateHash) public view returns (bytes memory)  {
         return "";
     }
 
@@ -50,5 +50,7 @@ contract MetaTransaction {
         getMessageHash(_certificate);
         
     }
+
+    
 
 }
