@@ -18,4 +18,22 @@ contract("Meta", ([address1, address2, operator1, operator2])=>{
             await meta.address.should.not.be.equal("", "it has a contract address")
         })
     })
+
+    describe("certificate hash", ()=>{
+
+        /*it("has an empty hash", async()=>{
+            const hash = 
+        })*/
+
+        let hash
+
+        beforeEach(async()=>{
+           hash =  await meta.hash()
+        })
+
+        it("returns hash", async()=>{
+           const hash = await meta._hashedMessage()
+           console.log(hash)
+        })
+    })
 })
