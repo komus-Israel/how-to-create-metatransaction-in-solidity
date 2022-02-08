@@ -9,13 +9,13 @@ contract("Meta", ([address1, address2, operator1, operator2])=>{
 
     let meta
 
-    beforeEach(()=>{
+    beforeEach(async()=>{
         meta = await Meta.new()
     })
 
     describe("deployment", ()=>{
         it("has contract address", async()=>{
-            meta.address.should.not.be.equal("", "it has a contract address")
+            await meta.address.should.not.be.equal("", "it has a contract address")
         })
     })
 })

@@ -19,8 +19,8 @@ contract MetaTransaction {
 
     }
 
-    function signCertificate () returns (bytes) {
-
+    function signCertificate () public view returns (bytes memory)  {
+        return "";
     }
 
 }
