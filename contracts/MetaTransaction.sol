@@ -32,9 +32,10 @@ contract MetaTransaction {
 
     bytes32 public _signedData;
     bytes32 public _hashedMessage;
+    address public signer;
 
     function getEthHash(bytes32 _certificateHash) public returns (bytes32)  {
-        _signedData = keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32",  _certificateHash));
+        _signedData = keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", _certificateHash));
         return _signedData;
     }
 
@@ -52,23 +53,23 @@ contract MetaTransaction {
         
     }
 
-    function recover(bytes32 _ethHash, bytes calldata _signature) external view returns (address) {
+    function recover(bytes32 _ethHash, bytes calldata _signature) external returns (address) {
 
         (bytes32 r, bytes32 s, uint8 v) = _split(_signature);
-        return erecover(_ethHash, v, r, s);
+        signer =  ecrecover(_ethHash, v, r, s);
 
     }
 
 
-    function _split(bytes memory _signature) returns (bytes32 r, bytes32 s, uint8 v) {
+    function _split(bytes memory _signature) internal returns (bytes32 r, bytes32 s, uint8 v) {
 
-        require(_signature.length == 64, "invalid signature length");
+        require(_signature.length == 65, "invalid signature length");
 
         assembly {
 
             r := mload(add(_signature, 32))
             s := mload(add(_signature, 64))
-            v := bytes1(0, mload(add(_signature, 96)))
+            v := byte(0, mload(add(_signature, 96)))
 
         }
 

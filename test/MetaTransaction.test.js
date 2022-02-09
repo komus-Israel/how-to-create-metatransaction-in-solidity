@@ -92,7 +92,7 @@ contract("Meta", ([address1, address2, operator1, operator2])=>{
 
         let certificateHash
         let hashedSignature
-        let signature = "0x381f336363f8b26ec1e03615d6794e3e7c546408122871953514d96faa22f1a9297d72b7b9ed2548907e2e50f49435b4daf4213158d4a0df75e240a7e549a8201b"
+        let signature = "0x4f9d78c59c7ac47064d553b0309c731f9225176b2a2504618b3eccbf07b3d11a079f90ea926870793498f1f0c11b51fc1c58946c3db51c42a49b42d9c47e84f41b"
 
         beforeEach(async()=>{
             await meta.hash()
@@ -110,9 +110,11 @@ contract("Meta", ([address1, address2, operator1, operator2])=>{
              
         })
 
-        it("recovers the address", ()=>{
-            const recover = await meta.recover(hashedSignature, signature)
+        it("recovers the address", async()=>{
+            await meta.recover(hashedSignature, signature)
+            const recover = await meta.signer()
             console.log(recover)
+            console.log(signature.length)
         })
 
     })
