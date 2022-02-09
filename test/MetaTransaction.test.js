@@ -113,8 +113,7 @@ contract("Meta", ([address1, address2, operator1, operator2])=>{
         it("recovers the address", async()=>{
             await meta.recover(hashedSignature, signature)
             const recover = await meta.signer()
-            console.log(recover)
-            console.log(signature.length)
+            recover.should.be.equal(address1, "returns the valid address of the signer")
         })
 
     })
