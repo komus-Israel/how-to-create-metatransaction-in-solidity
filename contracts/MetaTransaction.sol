@@ -30,18 +30,18 @@ contract MetaTransaction {
 
     }
 
-    bytes32 public _signedData;
+    bytes32 public _signedDataHash;
     bytes32 public _hashedMessage;
     address public signer;
 
     function getEthHash(bytes32 _certificateHash) public returns (bytes32)  {
-        _signedData = keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", _certificateHash));
-        return _signedData;
+        _signedDataHash = keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", _certificateHash));
+        return _signedDataHash;
     }
 
     function getMessageHash(Certificate memory _certificate) public returns (bytes32) {
 
-        _hashedMessage = keccak256(abi.encode(_certificate.nonce, _certificate.maxAmount, _certificate.minAmount));
+        _hashedMessage = keccak256(abi.encodePacked(_certificate.nonce, _certificate.maxAmount, _certificate.minAmount));
         return _hashedMessage;
 
     }
@@ -53,10 +53,10 @@ contract MetaTransaction {
         
     }
 
-    function recover(bytes32 _ethHash, bytes calldata _signature) external returns (address) {
+    function recover(bytes32 _ethSignedHash, bytes calldata _signature) external returns (address) {
 
         (bytes32 r, bytes32 s, uint8 v) = _split(_signature);
-        signer =  ecrecover(_ethHash, v, r, s);
+        signer =  ecrecover(_ethSignedHash, v, r, s);
 
     }
 

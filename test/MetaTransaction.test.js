@@ -104,16 +104,21 @@ contract("Meta", ([address1, address2, operator1, operator2])=>{
         })
 
         it("signs the certificate", async()=>{
+
              const sign = await meta.getEthHash(certificateHash)
-             hashedSignature = await meta._signedData()
-             console.log(hashedSignature)
+             hashedSignature = await meta._signedDataHash()
+             
              
         })
 
         it("recovers the address", async()=>{
+
             await meta.recover(hashedSignature, signature)
-            const recover = await meta.signer()
-            recover.should.be.equal(address1, "returns the valid address of the signer")
+            const signer = "0x3b38b124019267a4A12505CBc9D81eD14461165A"
+            const recoverSigner = await meta.signer()
+            console.log(recoverSigner)
+            recoverSigner.should.be.equal(signer, "the recovered signer equal the original signer of the message")
+            
         })
 
     })
